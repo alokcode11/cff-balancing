@@ -9,27 +9,24 @@ REPORT_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "reports")
 os.makedirs(REPORT_DIR, exist_ok=True)
 REPORT_FILE = os.path.join(REPORT_DIR, "12_cff_lan_discovery_live.md")
 
-# MCGS Kunlun Tongtai factory default IPs and common subnets
+# MCGS Kunlun Tongtai factory default IPs and machine confirmed IPs
 KNOWN_TARGETS = [
-    "200.200.200.190",   # MCGS factory default
-    "200.200.200.100",
-    "200.200.200.1",
-    "192.168.1.100",
-    "192.168.1.1",
-    "192.168.1.190",
-    "192.168.0.100",
+    "192.168.0.2",       # CFF Machine LAN1/LAN2 confirmed IP
+    "200.200.200.190",   # CFF Machine LAN3 confirmed IP
     "192.168.0.1",
-    "192.168.137.100",
+    "192.168.0.100",
+    "200.200.200.1",
+    "200.200.200.100",
+    "192.168.1.1",
+    "192.168.1.100",
     "192.168.137.1",
-    "169.254.4.1",       # Link-local gateway if CFF uses APIPA
 ]
 
 # Subnet sweeps
 SUBNETS = [
+    ("192.168.0",   range(1, 50)),
     ("200.200.200", range(1, 255)),
-    ("192.168.1",   range(1, 255)),
-    ("192.168.0",   range(1, 100)),
-    ("169.254.4",   range(1, 50)),
+    ("192.168.1",   range(1, 100)),
 ]
 
 # Ports to check on discovered hosts
