@@ -46,12 +46,38 @@ PORTS_TO_CHECK = [
 ]
 
 
+import ctypes, struct
+
+iphlpapi = ctypes.windll.iphlpapi
+
+def check_host_alive(ip, timeout_ms=400):
+    """Checks if host is alive using Layer 2 ARP first (bypasses ICMP/ping block), then ICMP ping."""
+    try:
+        dst_ip = struct.unpack('<I', socket.inet_aton(ip))[0]
+        mac = (ctypes.c_byte * 6)()
+        mac_len = ctypes.wintypes.ULONG(6)
+        res = iphlpapi.SendARP(dst_ip, 0, ctypes.byref(mac), ctypes.byref(mac_len))
+        if res == 0:
+            mac_str = ':'.join(f'{b & 0xff:02X}' for b in bytes(mac))
+            return True, mac_str
+    except Exception:
+        pass
+    # Fallback to ICMP ping
+    try:
+        r = subprocess.run(
+            ["ping", "-n", "1", "-w", str(timeout_ms), ip],
+            capture_output=True, text=True
+        )
+        if r.returncode == 0:
+            return True, "ICMP Response"
+    except Exception:
+        pass
+    return False, None
+
+
 def ping(ip, timeout_ms=400):
-    r = subprocess.run(
-        ["ping", "-n", "1", "-w", str(timeout_ms), ip],
-        capture_output=True, text=True
-    )
-    return r.returncode == 0
+    alive, _ = check_host_alive(ip, timeout_ms)
+    return alive
 
 
 def check_port(ip, port, timeout=1.5):
@@ -110,10 +136,18 @@ def main():
     
     # Phase 1: Try known MCGS IPs first (fast)
     print("\n[Phase 1] Testing known MCGS factory default IPs...")
+    my_ips = {"192.168.0.100", "200.200.200.100", "127.0.0.1"}
+    try:
+        my_ips.update(socket.gethostbyname_ex(socket.gethostname())[2])
+    except Exception:
+        pass
+
     alive = []
     for ip in KNOWN_TARGETS:
+        if ip in my_ips:
+            continue  # Don't scan our own laptop IP
         ok = ping(ip, 500)
-        status = "✅ ALIVE" if ok else "❌ No response"
+        status = "✅ ALIVE (Hardware Responded)" if ok else "❌ No response"
         print(f"  {ip:20s}  {status}")
         if ok:
             alive.append(ip)
