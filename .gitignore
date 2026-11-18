@@ -1,0 +1,9 @@
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.log
+
+# Sensitive / temporary data
+*.tmp
+*.bak

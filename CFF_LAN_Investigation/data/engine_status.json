@@ -1,0 +1,34 @@
+{
+  "time": "2026-11-17 17:41:25",
+  "threads": {
+    "USBWatcher": true,
+    "FolderWatcher": true,
+    "StatusReporter": true
+  },
+  "db_path": "C:\\Users\\alokp\\Desktop\\CFF\\CFF_LAN_Investigation\\data\\cff_balancing_records.db",
+  "log_path": "C:\\Users\\alokp\\Desktop\\CFF\\CFF_LAN_Investigation\\logs\\cff_auto_engine.log",
+  "print_queue": [
+    "sticker_CFF-20261114-11577_20261114_162806.png",
+    "sticker_CFF-20261114-11578_20261114_162806.png",
+    "sticker_CFF-20261114-11579_20261114_161557.png",
+    "sticker_CFF-20261114-11579_20261114_162805.png",
+    "sticker_CFF-20261114-11579_20261114_165108.png",
+    "sticker_CFF-20261114-11580_20261114_161557.png",
+    "sticker_CFF-20261114-11580_20261114_165108.png",
+    "sticker_CFF-20261116-11579_20261116_124930.png",
+    "sticker_CFF-20261116-11579_20261116_161256.png",
+    "sticker_CFF-20261116-11580_20261116_124930.png",
+    "sticker_CFF-20261116-11580_20261116_161256.png",
+    "sticker_CFF-20261117-11579_20261117_160743.png",
+    "sticker_CFF-20261117-11580_20261117_160744.png"
+  ],
+  "total_records": 614,
+  "printed_count": 602,
+  "last_record": {
+    "id": 614,
+    "time": "7020001384261002000385-1198",
+    "part": "26010050",
+    "serial": "107.5X695MM",
+    "result": null
+  }
+}

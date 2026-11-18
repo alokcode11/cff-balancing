@@ -1,0 +1,15 @@
+{
+  "scan_time": "2026-11-17 17:43:03",
+  "alive_hosts": [
+    "200.200.200.100"
+  ],
+  "open_ports": {
+    "200.200.200.100": {
+      "80": "HTTP WebUI",
+      "80_http_resp": "Error: timed out",
+      "8080": "HTTP Alt",
+      "8080_http_resp": "Error: timed out"
+    }
+  },
+  "cff_candidate": "200.200.200.100"
+}
